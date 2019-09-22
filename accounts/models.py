@@ -2,11 +2,12 @@ from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 from PIL import Image
 from django.utils import timezone
+from django.urls import reverse
 
 class StudentProfile(models.Model):
-    rollno = models.CharField(max_length=10)
+    rollno = models.CharField(max_length=10, unique=True)
     name = models.CharField(max_length=50)
-    civil, cse, ece, eee, ei, ibt, it, mech, prod = 'CVL', 'CS', 'EC', 'EE', 'EI', 'IB', 'IT', 'MC', 'PD'
+    civil, cse, ece, eee, ei, ibt, it, mech, prod = 'CIVIL', 'CSE', 'ECE', 'EEE', 'EI', 'IBT', 'IT', 'MECHANICLA', 'PRODUCTION'
     dept_choice = [(civil, 'CIVIL'),
                     (cse, 'CSE'),
                     (ece, 'ECE'),
@@ -55,8 +56,12 @@ class StudentProfile(models.Model):
             img.save(self.image.path)
 
 
+    def get_absolute_url(self):
+        return reverse("home")
+    
+
 class ExaminerProfile(models.Model):
-    staffid = models.CharField(max_length=10)
+    staffid = models.CharField(max_length=10, unique=True)
     name = models.CharField(max_length=50)
     mobile = PhoneNumberField()
     email = models.EmailField()
@@ -66,7 +71,7 @@ class ExaminerProfile(models.Model):
 
 
     def __str__(self):
-        return self.name
+        return self.staffid
     
 
     def save(self):
@@ -81,16 +86,18 @@ class ExaminerProfile(models.Model):
             img.save(self.image.path)
 
 
+    def get_absolute_url(self):
+        return reverse("home")
+
 
 class StudentExam(models.Model):
     rollno = models.ForeignKey(StudentProfile, on_delete=models.CASCADE, related_name='student_rollno')
-    # name = models.ForeignKey(StudentProfile, on_delete=models.CASCADE, related_name='student_name')
     subject = models.CharField(max_length=150)
     date = models.DateField()
     attendance = models.BooleanField(default=False, null=True, blank=True)
 
     def __str__(self):
-        return self.subject
+        return self.rollno
     
 
     

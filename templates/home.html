@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Home Page</h1>
+<a href="{% url 'add-student' %}">Add student</a>
+<a href="{% url 'add-examiner' %}">Add examiner</a><hr>
+
+<form action="{% url 'student-search' %}" method="get">
+    <input type="text" name="query" placeholder="Search...">
+    <input type="submit" value="Search">
+</form>
+
+{% endblock content %}
+
+
+
