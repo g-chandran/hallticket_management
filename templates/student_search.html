@@ -1,10 +1,26 @@
 {% extends 'base.html' %}
 {% block content %}
-{% for result in object_list %}
-    <h1>Search Results, {{ result.rollno }}</h1>
-    <div>
-    <p>Name: {{ result.name }}</p>
-    <p>Department: {{ result.department }}</p>
-    </div>
-{% endfor %}
+
+{% if object_list == 1 %}
+    {% for result in object_list %}
+        <h1>Search Results for {{ result.rollno }}</h1>
+        <div>
+            <img src="result.image.url" alt={{ result.name }}>
+            <h3>Name: {{ result.name }}</h3>
+            <h3>Date of Birth: {{ result.dob }}</h3>
+            <h3>Department: {{ result.department }}</h3>
+            <h3>Year of study: {{ result.year }}</h3>
+            <h1>Contact Details</h1>
+            <h3>Address: {{ result.address }}</h3>
+            <h3>Phone Number: {{ result.mobile }}</h3>
+            <h3>E-Mail ID: {{ result.email }}</h3>
+            <small>Date added: {{ result.date_added }}</small>
+        </div>
+        <a href={% url 'student-update' result.pk %}>Update</a>
+        <a href={% url 'student-delete' result.pk %}>Delete</a>
+        {% comment %} <a href="#">Hall-Ticket Data</a> {% endcomment %}
+    {% endfor %}
+{% else %}
+    <p>Sorry, no student records found for the Roll Number</p>
+{% endif %}
 {% endblock content %}

@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Delete Record</h1>
+<form action="" method="POST">
+    <h2>Are you sure you want to delete</h2>
+    <input type="submit" value="Yes, Delete">
+    <a href={% url 'home' %}>No, cancel</a>
+</form>
+{% endblock content %}

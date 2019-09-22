@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% if object_list %}
+    {% for result in object_list %}
+        <h1>Search Results for {{ result.staffid }}</h1>
+        <div>
+            <img src="result.image.url" alt={{ result.name }}>
+            <h3>Name: {{ result.name }}</h3>
+            <h3>Address: {{ result.address }}</h3>
+            <h3>Phone Number: {{ result.mobile }}</h3>
+            <h3>E-Mail ID: {{ result.email }}</h3>
+            <small>Date added: {{ result.date_added }}</small>
+        </div>
+        <a href={% url 'examiner-update' result.pk %}>Update</a>
+        <a href={% url 'examiner-delete' result.pk %}>Delete</a>
+    {% endfor %}
+{% else %}
+    <p>Sorry, no examiner records found for the Staff ID</p>
+{% endif %}
+{% endblock content %}

@@ -5,8 +5,13 @@
 <a href="{% url 'add-examiner' %}">Add examiner</a><hr>
 
 <form action="{% url 'student-search' %}" method="get">
-    <input type="text" name="query" placeholder="Search...">
-    <input type="submit" value="Search">
+    <input type="text" name="q_student" placeholder="Enter a Roll No">
+    <input type="submit" value="Search Student">
+</form>
+<br><br>
+<form action="{% url 'examiner-search' %}" method="get">
+    <input type="text" name="q_examiner" placeholder="Enter a Staff ID">
+    <input type="submit" value="Search Examiner">
 </form>
 
 {% endblock content %}
